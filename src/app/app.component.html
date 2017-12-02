@@ -1,0 +1,101 @@
+<div class="container">
+  <h1>Registration</h1>
+  <p>{{ successMessage }}</p>
+  <form (submit)="onSubmit()" name="formData" #formData="ngForm">
+    <label for="FirstName">First Name</label>
+    <input 
+      name="FirstName" 
+      type="text" 
+      class="form-control"  
+      required
+      minlength="4"
+      maxlength="24"
+      [(ngModel)]="user.FirstName"
+      #firstName="ngModel"
+    />
+    <p *ngIf="!firstName.valid && user.FirstName.length < 1">First Name is required</p>
+    
+    <label for="LastName">Last Name</label>
+    <input 
+      name="LastName"
+      type="text" 
+      class="form-control"
+      [(ngModel)]="user.LastName"
+      #LastName="ngModel"
+      required
+    >
+    <p *ngIf="user.LastName.length < 1">Last Name is required</p>
+    <label for="Email">Email</label>
+    <input 
+      name="Email"
+      type="text" 
+      class="form-control"
+      [(ngModel)]="user.Email"
+      #Email="ngModel"
+      required
+    >
+    <p *ngIf="user.Email.length < 1">Email is required</p>
+    <label for="Password">Password</label>
+    <input 
+      name="Password"
+      type="password" 
+      class="form-control"
+      [(ngModel)]="user.Password"
+      #Password="ngModel"
+      required
+      minlength="5"
+    >
+    <p *ngIf="user.Password.length < 1">Password is required</p>
+    <p *ngIf="user.Password.length > 0 && user.Password.length < 5">Password must be at least 5 characters</p>
+    <label for="ConfirmPassword">Confirm Password</label>
+    <input 
+      name="ConfirmPassword"
+      type="password" 
+      class="form-control"
+      [(ngModel)]="user.ConfirmPassword"
+      #ConfirmPassword="ngModel"
+      required
+    >
+      <p *ngIf="user.ConfirmPassword.length < 1">Confirm Password is required</p>
+      <p *ngIf="user.ConfirmPassword != user.Password">Confirm Password and Password must match</p>
+    <label for="Address">Address</label>
+    <input 
+      name="Address"
+      type="text" 
+      class="form-control"
+      [(ngModel)]="user.Address"
+      #Address="ngModel"
+      required
+    >
+    <p *ngIf="user.Address.length < 1">Address is required</p>
+    <label for="Unit">Unit</label>
+    <input 
+      name="Unit"
+      type="text" 
+      class="form-control"
+      [(ngModel)]="user.Unit"
+      #Unit="ngModel"
+    >
+    <p *ngIf="Unit.errors"></p>
+    <label for="City">City</label>
+    <input 
+      name="City"
+      type="text" 
+      class="form-control"
+      [(ngModel)]="user.City"
+      #City="ngModel"
+      required
+    >
+    <select name="State" class="form-control" [(ngModel)]="user.State" #State="ngModel" required>
+      <option value="WA">WA</option>
+      <option value="CA">CA</option>
+    </select>
+    <p *ngIf="user.City.length < 1">City is required</p>
+    <p>I'm feeling lucky</p>
+    <input [(ngModel)]="user.Lucky" type="radio" name="Lucky" id="Lucky-true" class="form-control" [value]="true">
+    <label for="Lucky-true">Yes</label>
+    <input [(ngModel)]="user.Lucky" type="radio" name="Lucky" id="Lucky-false" class="form-control" [value]="false">
+    <label for="Lucky-false">No</label>
+    <input [disabled]="!formData.valid || user.Password != user.ConfirmPassword" type="submit" value="Submit" class="btn-primary">
+  </form>
+</div>
